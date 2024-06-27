@@ -53,19 +53,17 @@ const Home = () => {
     }
   }
 
-  if (over === MAX_OVERS) {
-    setRun(0);
-    setWicket(0);
-    setOver(0);
-    setBallInOneOver(0);
-    setRunInOneOver([]);
-    setTeamOneRun(run);
-    setTeamOneWicket(wicket);
-    setTeamOneOver(over);
-    setTeamOneBallInOneOver(ballInOneOver);
+  if (teamOneInningsEnd === false) {
+    if (over === MAX_OVERS || wicket === 10) {
+      setTeamOneRun(run);
+      setTeamOneWicket(wicket);
+      setTeamOneOver(over);
+      setTeamOneBallInOneOver(ballInOneOver);
+      setTeamOneInningsEnd(true)
+    }
   }
 
-  if (wicket === 10) {
+  if (over === MAX_OVERS || wicket === 10) {
     setRun(0);
     setWicket(0);
     setOver(0);
@@ -74,7 +72,6 @@ const Home = () => {
     setTeamOneRun(run);
     setTeamOneWicket(wicket);
     setTeamOneOver(over);
-    setTeamOneBallInOneOver(ballInOneOver);
   }
 
   function updateOver() {
