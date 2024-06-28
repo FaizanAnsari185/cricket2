@@ -53,12 +53,21 @@ const Home = () => {
     }
   }
 
+  if (teamOneInningsEnd) {
+    if (over === MAX_OVERS || wicket === 10) {
+      setTeamTwoRun(run);
+      setTeamTwoOver(over);
+      setTeamTwoWicket(wicket);
+      setTeamTwoBallInOneOver(ballInOneOver);
+    } else {
+      
+    }
+  }
   function updateOver() {
     setOver(over + 1);
     setBallInOneOver(0);
     setRunInOneOver([]);
   }
-
 
   return (
     <div className="flex justify-center items-center px-4">
@@ -124,10 +133,6 @@ const Home = () => {
 };
 
 export default Home;
-
-
-
-
 
 // function updateMatch() {
 //   setRun(0);
