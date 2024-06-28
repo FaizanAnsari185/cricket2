@@ -53,72 +53,12 @@ const Home = () => {
     }
   }
 
-  useEffect(() => {
-    if (teamOneInningsEnd) {
-      if (over === MAX_OVERS || wicket === 10) {
-        setTeamTwoRun(run);
-        setTeamTwoWicket(wicket);
-        setTeamTwoOver(over);
-        setTeamTwoBallInOneOver(ballInOneOver);
-        setTeamTwoInningsEnd(true);
-      }
-    } else {
-      if (over === MAX_OVERS || wicket === 10) {
-        setTeamOneRun(run);
-        setTeamOneWicket(wicket);
-        setTeamOneOver(over);
-        setTeamOneBallInOneOver(ballInOneOver);
-        setTeamOneInningsEnd(true);
-        completeInnings();
-      }
-    }
-  }, [over, wicket]);
-
-  useEffect(() => {
-    if (teamTwoInningsEnd) {
-      if (teamOneRun > teamTwoRun) {
-        setWinner(1);
-      } else if (teamOneRun < teamTwoRun) {
-        setWinner(2);
-      } else if (teamOneRun === teamTwoRun) {
-        setMatchTie(1);
-      }
-    }
-  }, [teamOneInningsEnd, teamOneRun, teamTwoRun]);
-
-  function completeInnings() {
-    setRun(0);
-    setWicket(0);
-    setOver(0);
-    setBallInOneOver(0);
-    setRunInOneOver([]);
-  }
-
   function updateOver() {
     setOver(over + 1);
     setBallInOneOver(0);
     setRunInOneOver([]);
   }
 
-  function updateMatch() {
-    setRun(0);
-    setWicket(0);
-    setOver(0);
-    setBallInOneOver(0);
-    setRunInOneOver([]);
-    setTeamOneRun(0);
-    setTeamOneWicket(0);
-    setTeamOneOver(0);
-    setTeamOneBallInOneOver(0);
-    setTeamOneInningsEnd(false);
-    setTeamTwoRun(0);
-    setTeamTwoWicket(0);
-    setTeamTwoOver(0);
-    setTeamTwoBallInOneOver(0);
-    setTeamTwoInningsEnd(false);
-    setWinner(0);
-    setMatchTie(0);
-  }
 
   return (
     <div className="flex justify-center items-center px-4">
@@ -184,3 +124,27 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
+
+
+// function updateMatch() {
+//   setRun(0);
+//   setWicket(0);
+//   setOver(0);
+//   setBallInOneOver(0);
+//   setRunInOneOver([]);
+//   setTeamOneRun(0);
+//   setTeamOneWicket(0);
+//   setTeamOneOver(0);
+//   setTeamOneBallInOneOver(0);
+//   setTeamOneInningsEnd(false);
+//   setTeamTwoRun(0);
+//   setTeamTwoWicket(0);
+//   setTeamTwoOver(0);
+//   setTeamTwoBallInOneOver(0);
+//   setTeamTwoInningsEnd(false);
+//   setWinner(0);
+//   setMatchTie(0);
+// }
