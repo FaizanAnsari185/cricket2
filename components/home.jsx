@@ -34,15 +34,47 @@ const Home = () => {
     if (ballInOneOver === 6) {
       return;
     } else if (pb === "Dot Ball") {
-      setRunInOneOver([...runInOneOver, "*"]);
-      setBallInOneOver(ballInOneOver + 1);
+      if (over === MAX_OVERS - 1 && ballInOneOver === 5 && !teamOneInningsEnd) {
+        setTeamOneRun(run);
+        setTeamOneOver(over + 1);
+        setTeamOneWicket(wicket);
+        setTeamOneBallInOneOver(0);
+        resetInnings();
+        setTeamOneInningsEnd(true);
+      } else if (over === MAX_OVERS - 1 && ballInOneOver === 5) {
+        setTeamTwoRun(run);
+        setTeamTwoOver(over);
+        setTeamTwoWicket(wicket);
+        setTeamTwoBallInOneOver(ballInOneOver);
+        setTeamTwoInningsEnd(true);
+        resetInnings();
+      } else {
+        setRunInOneOver([...runInOneOver, "*"]);
+        setBallInOneOver(ballInOneOver + 1);
+      }
+    } else if (pb === "Wicket") {
+      if (over === MAX_OVERS - 1 && ballInOneOver === 5 && !teamOneInningsEnd) {
+        setTeamOneRun(run);
+        setTeamOneOver(over + 1);
+        setTeamOneWicket(wicket);
+        setTeamOneBallInOneOver(0);
+        setTeamOneInningsEnd(true);
+        resetInnings();
+      } else if (over === MAX_OVERS - 1 && ballInOneOver === 5) {
+        setTeamTwoRun(run);
+        setTeamTwoOver(over);
+        setTeamTwoWicket(wicket);
+        setTeamTwoBallInOneOver(ballInOneOver);
+        setTeamTwoInningsEnd(true);
+        resetInnings();
+      } else {
+        setRunInOneOver([...runInOneOver, "W"]);
+        setWicket(wicket + 1);
+        setBallInOneOver(ballInOneOver + 1);
+      }
     } else if (pb === "Wide Ball") {
       setRunInOneOver([...runInOneOver, "WB"]);
       setRun(run + 1);
-    } else if (pb === "Wicket") {
-      setRunInOneOver([...runInOneOver, "W"]);
-      setWicket(wicket + 1);
-      setBallInOneOver(ballInOneOver + 1);
     } else if (pb === "No Ball") {
       setRunInOneOver([...runInOneOver, "NB"]);
       setRun(run + 1);
@@ -51,29 +83,74 @@ const Home = () => {
       setRun(pb + run);
       setBallInOneOver(ballInOneOver + 1);
     }
-  }
-
-  if (teamOneInningsEnd) {
-    if (over === MAX_OVERS || wicket === 10) {
+    if (over === MAX_OVERS - 1 && ballInOneOver === 5 && !teamOneInningsEnd) {
+      setTeamOneRun(run);
+      setTeamOneOver(over + 1);
+      setTeamOneWicket(wicket);
+      setTeamOneBallInOneOver(0);
+      resetInnings();
+      setTeamOneInningsEnd(true);
+    } else if (over === MAX_OVERS - 1 && ballInOneOver === 5) {
       setTeamTwoRun(run);
-      setTeamTwoOver(over);
+      setTeamTwoOver(over + 1);
       setTeamTwoWicket(wicket);
-      setTeamTwoBallInOneOver(ballInOneOver);
-    } else {
-      
+      setTeamTwoBallInOneOver(0);
+      setTeamTwoInningsEnd(true);
+      resetInnings();
     }
   }
+
+  useEffect(() => {
+    if (teamTwoInningsEnd) {
+      if (teamOneRun > teamTwoRun) {
+        setWinner(1);
+      } else if (teamOneRun < teamTwoRun) {
+        setWinner(2);
+      } else if (teamOneRun === teamTwoRun) {
+        setMatchTie(1);
+      }
+    }
+  }, [teamOneRun, teamTwoRun]);
+
+  function resetInnings() {
+    setRun(0);
+    setOver(0);
+    setWicket(0);
+    setBallInOneOver(0);
+    setRunInOneOver([]);
+  }
+
   function updateOver() {
     setOver(over + 1);
     setBallInOneOver(0);
     setRunInOneOver([]);
   }
 
+  function updateMatch() {
+    setRun(0);
+    setWicket(0);
+    setOver(0);
+    setBallInOneOver(0);
+    setRunInOneOver([]);
+    setTeamOneRun(0);
+    setTeamOneWicket(0);
+    setTeamOneOver(0);
+    setTeamOneBallInOneOver(0);
+    setTeamOneInningsEnd(false);
+    setTeamTwoRun(0);
+    setTeamTwoWicket(0);
+    setTeamTwoOver(0);
+    setTeamTwoBallInOneOver(0);
+    setTeamTwoInningsEnd(false);
+    setWinner(0);
+    setMatchTie(0);
+  }
+
   return (
     <div className="flex justify-center items-center px-4">
       <div className="flex flex-col gap-4 border shadow-2xl rounded-md p-4 font-bold">
         <div className="flex flex-col gap-5 justify-around">
-          <div className="flex gap-4 justify-center flex-wrap">
+          <div className="flex flex-wrap gap-4 justify-center">
             {runInOneOver.map((item, index) => (
               <Run runwicket={item} key={index} />
             ))}
@@ -133,23 +210,3 @@ const Home = () => {
 };
 
 export default Home;
-
-// function updateMatch() {
-//   setRun(0);
-//   setWicket(0);
-//   setOver(0);
-//   setBallInOneOver(0);
-//   setRunInOneOver([]);
-//   setTeamOneRun(0);
-//   setTeamOneWicket(0);
-//   setTeamOneOver(0);
-//   setTeamOneBallInOneOver(0);
-//   setTeamOneInningsEnd(false);
-//   setTeamTwoRun(0);
-//   setTeamTwoWicket(0);
-//   setTeamTwoOver(0);
-//   setTeamTwoBallInOneOver(0);
-//   setTeamTwoInningsEnd(false);
-//   setWinner(0);
-//   setMatchTie(0);
-// }
