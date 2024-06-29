@@ -27,13 +27,12 @@ const Home = () => {
   //Winner
   const [winner, setWinner] = useState(0);
   const [matchTie, setMatchTie] = useState(0);
-  // Next Match
-  const [nextMatch, setNextMatch] = useState(0);
 
   function updateRun(pb) {
     if (ballInOneOver === 6) {
       return;
-    } else if (pb === "Dot Ball") {
+    }
+     else if (pb === "Dot Ball") {
       if (over === MAX_OVERS - 1 && ballInOneOver === 5 && !teamOneInningsEnd) {
         setTeamOneRun(run);
         setTeamOneOver(over + 1);
@@ -73,9 +72,23 @@ const Home = () => {
         setBallInOneOver(ballInOneOver + 1);
       }
     } else if (pb === "Wide Ball") {
+      if (teamOneRun === run) {
+        setTeamTwoRun(run +1);
+        setTeamTwoWicket(wicket);
+        setTeamTwoOver(over);
+        setTeamTwoBallInOneOver(ballInOneOver);
+        setTeamTwoInningsEnd(true);
+      }
       setRunInOneOver([...runInOneOver, "WB"]);
       setRun(run + 1);
     } else if (pb === "No Ball") {
+      if (teamOneRun === run) {
+        setTeamTwoRun(run +1);
+        setTeamTwoWicket(wicket);
+        setTeamTwoOver(over);
+        setTeamTwoBallInOneOver(ballInOneOver);
+        setTeamTwoInningsEnd(true);
+      }
       setRunInOneOver([...runInOneOver, "NB"]);
       setRun(run + 1);
     } else {
@@ -88,8 +101,8 @@ const Home = () => {
       setTeamOneOver(over + 1);
       setTeamOneWicket(wicket);
       setTeamOneBallInOneOver(0);
-      resetInnings();
       setTeamOneInningsEnd(true);
+      resetInnings();
     } else if (over === MAX_OVERS - 1 && ballInOneOver === 5) {
       setTeamTwoRun(run);
       setTeamTwoOver(over + 1);
@@ -110,7 +123,7 @@ const Home = () => {
         setMatchTie(1);
       }
     }
-  }, [teamOneRun, teamTwoRun]);
+  }, [teamTwoInningsEnd, teamOneRun, teamTwoRun]);
 
   function resetInnings() {
     setRun(0);
