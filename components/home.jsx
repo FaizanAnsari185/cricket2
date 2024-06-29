@@ -28,91 +28,6 @@ const Home = () => {
   const [winner, setWinner] = useState(0);
   const [matchTie, setMatchTie] = useState(0);
 
-  function updateRun(pb) {
-    if (ballInOneOver === 6) {
-      return;
-    }
-     else if (pb === "Dot Ball") {
-      if (over === MAX_OVERS - 1 && ballInOneOver === 5 && !teamOneInningsEnd) {
-        setTeamOneRun(run);
-        setTeamOneOver(over + 1);
-        setTeamOneWicket(wicket);
-        setTeamOneBallInOneOver(0);
-        resetInnings();
-        setTeamOneInningsEnd(true);
-      } else if (over === MAX_OVERS - 1 && ballInOneOver === 5) {
-        setTeamTwoRun(run);
-        setTeamTwoOver(over);
-        setTeamTwoWicket(wicket);
-        setTeamTwoBallInOneOver(ballInOneOver);
-        setTeamTwoInningsEnd(true);
-        resetInnings();
-      } else {
-        setRunInOneOver([...runInOneOver, "*"]);
-        setBallInOneOver(ballInOneOver + 1);
-      }
-    } else if (pb === "Wicket") {
-      if (over === MAX_OVERS - 1 && ballInOneOver === 5 && !teamOneInningsEnd) {
-        setTeamOneRun(run);
-        setTeamOneOver(over + 1);
-        setTeamOneWicket(wicket);
-        setTeamOneBallInOneOver(0);
-        setTeamOneInningsEnd(true);
-        resetInnings();
-      } else if (over === MAX_OVERS - 1 && ballInOneOver === 5) {
-        setTeamTwoRun(run);
-        setTeamTwoOver(over);
-        setTeamTwoWicket(wicket);
-        setTeamTwoBallInOneOver(ballInOneOver);
-        setTeamTwoInningsEnd(true);
-        resetInnings();
-      } else {
-        setRunInOneOver([...runInOneOver, "W"]);
-        setWicket(wicket + 1);
-        setBallInOneOver(ballInOneOver + 1);
-      }
-    } else if (pb === "Wide Ball") {
-      if (teamOneRun === run) {
-        setTeamTwoRun(run +1);
-        setTeamTwoWicket(wicket);
-        setTeamTwoOver(over);
-        setTeamTwoBallInOneOver(ballInOneOver);
-        setTeamTwoInningsEnd(true);
-      }
-      setRunInOneOver([...runInOneOver, "WB"]);
-      setRun(run + 1);
-    } else if (pb === "No Ball") {
-      if (teamOneRun === run) {
-        setTeamTwoRun(run +1);
-        setTeamTwoWicket(wicket);
-        setTeamTwoOver(over);
-        setTeamTwoBallInOneOver(ballInOneOver);
-        setTeamTwoInningsEnd(true);
-      }
-      setRunInOneOver([...runInOneOver, "NB"]);
-      setRun(run + 1);
-    } else {
-      setRunInOneOver([...runInOneOver, pb]);
-      setRun(pb + run);
-      setBallInOneOver(ballInOneOver + 1);
-    }
-    if (over === MAX_OVERS - 1 && ballInOneOver === 5 && !teamOneInningsEnd) {
-      setTeamOneRun(run);
-      setTeamOneOver(over + 1);
-      setTeamOneWicket(wicket);
-      setTeamOneBallInOneOver(0);
-      setTeamOneInningsEnd(true);
-      resetInnings();
-    } else if (over === MAX_OVERS - 1 && ballInOneOver === 5) {
-      setTeamTwoRun(run);
-      setTeamTwoOver(over + 1);
-      setTeamTwoWicket(wicket);
-      setTeamTwoBallInOneOver(0);
-      setTeamTwoInningsEnd(true);
-      resetInnings();
-    }
-  }
-
   useEffect(() => {
     if (teamTwoInningsEnd) {
       if (teamOneRun > teamTwoRun) {
@@ -157,6 +72,107 @@ const Home = () => {
     setTeamTwoInningsEnd(false);
     setWinner(0);
     setMatchTie(0);
+  }
+
+  function updateRun(pb) {
+    if (ballInOneOver === 6) {
+      return;
+    } else if (pb === "Dot Ball") {
+      if (over === MAX_OVERS - 1 && ballInOneOver === 5 && !teamOneInningsEnd) {
+        setTeamOneRun(run);
+        setTeamOneOver(over + 1);
+        setTeamOneWicket(wicket);
+        setTeamOneBallInOneOver(0);
+        resetInnings();
+        setTeamOneInningsEnd(true);
+      } else if (over === MAX_OVERS - 1 && ballInOneOver === 5) {
+        setTeamTwoRun(run);
+        setTeamTwoOver(over);
+        setTeamTwoWicket(wicket);
+        setTeamTwoBallInOneOver(ballInOneOver);
+        setTeamTwoInningsEnd(true);
+        resetInnings();
+      } else {
+        setRunInOneOver([...runInOneOver, "*"]);
+        setBallInOneOver(ballInOneOver + 1);
+      }
+    } else if (pb === "Wicket") {
+      if (
+        (over === MAX_OVERS - 1 && ballInOneOver === 5 && !teamOneInningsEnd) ||
+        (wicket === 9 && !teamOneInningsEnd)
+      ) {
+        setTeamOneRun(run);
+        setTeamOneOver(over + 1);
+        if (wicket === 9) {
+          setTeamOneWicket(wicket + 1);
+        } else {
+          setTeamOneWicket(wicket);
+        }
+        setTeamOneBallInOneOver(0);
+        setTeamOneInningsEnd(true);
+        resetInnings();
+      } else if ((over === MAX_OVERS - 1 && ballInOneOver === 5) || (wicket === 9)){
+        setTeamTwoRun(run);
+        setTeamTwoOver(over);
+        if (wicket === 9) {
+          setTeamTwoWicket(wicket + 1);
+        } else {
+          setTeamTwoWicket(wicket);
+        }
+        setTeamTwoBallInOneOver(ballInOneOver);
+        setTeamTwoInningsEnd(true);
+        resetInnings();
+      } else {
+        setRunInOneOver([...runInOneOver, "W"]);
+        setWicket(wicket + 1);
+        setBallInOneOver(ballInOneOver + 1);
+      }
+    } else if (pb === "Wide Ball") {
+      if (teamOneRun === run) {
+        setTeamTwoRun(run + 1);
+        setTeamTwoWicket(wicket);
+        setTeamTwoOver(over);
+        setTeamTwoBallInOneOver(ballInOneOver);
+        setTeamTwoInningsEnd(true);
+      }
+      setRunInOneOver([...runInOneOver, "WB"]);
+      setRun(run + 1);
+    } else if (pb === "No Ball") {
+      if (teamOneRun === run) {
+        setTeamTwoRun(run + 1);
+        setTeamTwoWicket(wicket);
+        setTeamTwoOver(over);
+        setTeamTwoBallInOneOver(ballInOneOver);
+        setTeamTwoInningsEnd(true);
+      }
+      setRunInOneOver([...runInOneOver, "NB"]);
+      setRun(run + 1);
+    } else if (teamOneInningsEnd && teamOneRun < run + pb) {
+      setTeamTwoRun(run + pb);
+      setTeamTwoWicket(wicket);
+      setTeamTwoOver(over);
+      setTeamTwoBallInOneOver(ballInOneOver);
+      setTeamTwoInningsEnd(true);
+    } else {
+      setRunInOneOver([...runInOneOver, pb]);
+      setRun(pb + run);
+      setBallInOneOver(ballInOneOver + 1);
+    }
+    if (over === MAX_OVERS - 1 && ballInOneOver === 5 && !teamOneInningsEnd) {
+      setTeamOneRun(run);
+      setTeamOneOver(over + 1);
+      setTeamOneWicket(wicket);
+      setTeamOneBallInOneOver(0);
+      setTeamOneInningsEnd(true);
+      resetInnings();
+    } else if (over === MAX_OVERS - 1 && ballInOneOver === 5) {
+      setTeamTwoRun(run);
+      setTeamTwoOver(over + 1);
+      setTeamTwoWicket(wicket);
+      setTeamTwoBallInOneOver(0);
+      setTeamTwoInningsEnd(true);
+      resetInnings();
+    }
   }
 
   return (
