@@ -3,7 +3,7 @@ import Playbutton from "@/components/playbutton";
 import Run from "@/components/run";
 import React, { useEffect, useState } from "react";
 
-const MAX_OVERS = 3;
+const MAX_OVERS = 2;
 
 const Home = () => {
   const [runInOneOver, setRunInOneOver] = useState([]);
@@ -230,8 +230,13 @@ const Home = () => {
             </div>
           )}
           {winner !== 0 && (
-            <div className="flex justify-center">Team {winner} Won</div>
+            <div className="flex justify-center">
+              {winner === 1
+                ? `Team 1 Won by ${teamOneRun - teamTwoRun} runs`
+                : `Team 2 Won by ${10 - teamTwoWicket} wickets`}
+            </div>
           )}
+
           {matchTie !== 0 && (
             <div className="flex justify-center">Match Tie</div>
           )}
