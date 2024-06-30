@@ -136,7 +136,7 @@ const Home = () => {
         setTeamTwoWicket(wicket);
         setTeamTwoOver(over);
         setTeamTwoBallInOneOver(ballInOneOver);
-        setTeamTwoInningsEnd(true);
+        setTeamTwoInningsEnd(false);
       }
       setRunInOneOver([...runInOneOver, "WB"]);
       setRun(run + 1);
@@ -146,7 +146,7 @@ const Home = () => {
         setTeamTwoWicket(wicket);
         setTeamTwoOver(over);
         setTeamTwoBallInOneOver(ballInOneOver);
-        setTeamTwoInningsEnd(true);
+        setTeamTwoInningsEnd(false);
       }
       setRunInOneOver([...runInOneOver, "NB"]);
       setRun(run + 1);
