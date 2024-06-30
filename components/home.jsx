@@ -54,25 +54,6 @@ const Home = () => {
     setRunInOneOver([]);
   }
 
-  function updateMatch() {
-    setRun(0);
-    setWicket(0);
-    setOver(0);
-    setBallInOneOver(0);
-    setRunInOneOver([]);
-    setTeamOneRun(0);
-    setTeamOneWicket(0);
-    setTeamOneOver(0);
-    setTeamOneBallInOneOver(0);
-    setTeamOneInningsEnd(false);
-    setTeamTwoRun(0);
-    setTeamTwoWicket(0);
-    setTeamTwoOver(0);
-    setTeamTwoBallInOneOver(0);
-    setTeamTwoInningsEnd(false);
-    setWinner(0);
-    setMatchTie(0);
-  }
 
   function updateRun(pb) {
     if (ballInOneOver === 6) {
@@ -136,7 +117,7 @@ const Home = () => {
         setTeamTwoWicket(wicket);
         setTeamTwoOver(over);
         setTeamTwoBallInOneOver(ballInOneOver);
-        setTeamTwoInningsEnd(false);
+        setTeamTwoInningsEnd(true);
       }
       setRunInOneOver([...runInOneOver, "WB"]);
       setRun(run + 1);
@@ -146,7 +127,7 @@ const Home = () => {
         setTeamTwoWicket(wicket);
         setTeamTwoOver(over);
         setTeamTwoBallInOneOver(ballInOneOver);
-        setTeamTwoInningsEnd(false);
+        setTeamTwoInningsEnd(true);
       }
       setRunInOneOver([...runInOneOver, "NB"]);
       setRun(run + 1);
@@ -176,6 +157,26 @@ const Home = () => {
       setTeamTwoInningsEnd(true);
       resetInnings();
     }
+  }
+
+    function updateMatch() {
+    setRun(0);
+    setWicket(0);
+    setOver(0);
+    setBallInOneOver(0);
+    setRunInOneOver([]);
+    setTeamOneRun(0);
+    setTeamOneWicket(0);
+    setTeamOneOver(0);
+    setTeamOneBallInOneOver(0);
+    setTeamOneInningsEnd(false);
+    setTeamTwoRun(0);
+    setTeamTwoWicket(0);
+    setTeamTwoOver(0);
+    setTeamTwoBallInOneOver(0);
+    setTeamTwoInningsEnd(false);
+    setWinner(0);
+    setMatchTie(0);
   }
 
   return (
@@ -235,7 +236,7 @@ const Home = () => {
                 ? `Team 1 Won by ${teamOneRun - teamTwoRun} runs`
                 : `Team 2 Won by ${10 - teamTwoWicket} wickets (${
                     MAX_OVERS * 6 - (teamTwoOver * 6 + teamTwoBallInOneOver)
-                  } Balls Left)`}
+                  } balls left)`}
             </div>
           )}
 
