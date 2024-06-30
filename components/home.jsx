@@ -3,7 +3,7 @@ import Playbutton from "@/components/playbutton";
 import Run from "@/components/run";
 import React, { useEffect, useState } from "react";
 
-const MAX_OVERS = 2;
+const MAX_OVERS = 3;
 
 const Home = () => {
   const [runInOneOver, setRunInOneOver] = useState([]);
@@ -102,16 +102,19 @@ const Home = () => {
         (wicket === 9 && !teamOneInningsEnd)
       ) {
         setTeamOneRun(run);
-        setTeamOneOver(over + 1);
+        setTeamOneOver(over);
         if (wicket === 9) {
           setTeamOneWicket(wicket + 1);
         } else {
           setTeamOneWicket(wicket);
         }
-        setTeamOneBallInOneOver(0);
+        setTeamOneBallInOneOver(ballInOneOver + 1);
         setTeamOneInningsEnd(true);
         resetInnings();
-      } else if ((over === MAX_OVERS - 1 && ballInOneOver === 5) || (wicket === 9)){
+      } else if (
+        (over === MAX_OVERS - 1 && ballInOneOver === 5) ||
+        wicket === 9
+      ) {
         setTeamTwoRun(run);
         setTeamTwoOver(over);
         if (wicket === 9) {
@@ -119,7 +122,7 @@ const Home = () => {
         } else {
           setTeamTwoWicket(wicket);
         }
-        setTeamTwoBallInOneOver(ballInOneOver);
+        setTeamTwoBallInOneOver(ballInOneOver + 1);
         setTeamTwoInningsEnd(true);
         resetInnings();
       } else {
