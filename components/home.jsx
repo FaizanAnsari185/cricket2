@@ -233,7 +233,9 @@ const Home = () => {
             <div className="flex justify-center">
               {winner === 1
                 ? `Team 1 Won by ${teamOneRun - teamTwoRun} runs`
-                : `Team 2 Won by ${10 - teamTwoWicket} wickets`}
+                : `Team 2 Won by ${10 - teamTwoWicket} wickets (${
+                    MAX_OVERS * 6 - (teamTwoOver * 6 + teamTwoBallInOneOver)
+                  } Balls Left)`}
             </div>
           )}
 
