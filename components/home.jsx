@@ -54,7 +54,6 @@ const Home = () => {
     setRunInOneOver([]);
   }
 
-
   function updateRun(pb) {
     if (ballInOneOver === 6) {
       return;
@@ -135,7 +134,7 @@ const Home = () => {
       setTeamTwoRun(run + pb);
       setTeamTwoWicket(wicket);
       setTeamTwoOver(over);
-      setTeamTwoBallInOneOver(ballInOneOver);
+      setTeamTwoBallInOneOver(ballInOneOver + 1);
       setTeamTwoInningsEnd(true);
     } else {
       setRunInOneOver([...runInOneOver, pb]);
@@ -159,7 +158,7 @@ const Home = () => {
     }
   }
 
-    function updateMatch() {
+  function updateMatch() {
     setRun(0);
     setWicket(0);
     setOver(0);
