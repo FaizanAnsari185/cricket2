@@ -111,7 +111,7 @@ const Home = () => {
         setBallInOneOver(ballInOneOver + 1);
       }
     } else if (pb === "Wide Ball") {
-      if (teamOneRun === run) {
+      if (teamOneInningsEnd && teamOneRun === run) {
         setTeamTwoRun(run + 1);
         setTeamTwoWicket(wicket);
         setTeamTwoOver(over);
@@ -121,7 +121,7 @@ const Home = () => {
       setRunInOneOver([...runInOneOver, "WB"]);
       setRun(run + 1);
     } else if (pb === "No Ball") {
-      if (teamOneRun === run) {
+      if (teamOneInningsEnd && teamOneRun === run) {
         setTeamTwoRun(run + 1);
         setTeamTwoWicket(wicket);
         setTeamTwoOver(over);
@@ -157,6 +157,12 @@ const Home = () => {
       resetInnings();
     }
   }
+
+//   function deleteBall(pb) {
+// if (pb === "Dott Ball") {
+//   setBallInOneOver(ballInOneOver - 1)
+// }
+//   }
 
   function updateMatch() {
     setRun(0);
@@ -209,6 +215,12 @@ const Home = () => {
                 Next Match
               </button>
             )}
+            {/* <button
+              onClick={deleteBall}
+              className="bg-red-500 rounded-md p-4 text-white hover:bg-red-600"
+            >
+              DELETE
+            </button> */}
           </div>
         </div>
         <div className="flex flex-col gap-3 justify-around">
